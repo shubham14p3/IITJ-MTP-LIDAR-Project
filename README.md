@@ -44,7 +44,7 @@ User Name : **admin** || Password: **admin**  (Default)
 
 1. **Create a Virtual Environment**:
     ```bash
-    python3.10 -m venv veenv
+    python3.10 -m venv venv
     ```
 
 2. **Activate Virtual Environment**:
@@ -64,6 +64,12 @@ User Name : **admin** || Password: **admin**  (Default)
 # Install requirements
 python -m pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
+
+python convert_npy_to_npz.py
+python preprocess_3dses.py
+python train_seg.py --epochs 1 --batch_size 1
+uvicorn api:app --reload --port 8000
+
 
 #### Step 2: Install Python Dependencies
 Install the required Python packages using the `requirements.txt` file:

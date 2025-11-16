@@ -40,7 +40,7 @@ class TNet(nn.Module):
         return x
 
 
-class PointNetSeg(nn.Module):
+class PointNetSegLite(nn.Module):
     """PointNet-style semantic segmentation network."""
     def __init__(self, num_classes, input_dim=3):
         super().__init__()

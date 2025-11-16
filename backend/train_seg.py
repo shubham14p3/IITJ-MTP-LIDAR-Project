@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 
 from config import DATA_PROCESSED, CHECKPOINT_DIR, NUM_CLASSES, NUM_POINTS
 from dataset import PointCloudDataset
-from models.pointnet import PointNetSeg
+from models.pointnet import PointNetSegLite
 
 
 def train(args):
@@ -18,7 +18,9 @@ def train(args):
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, num_workers=2)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False, num_workers=2)
 
-    model = PointNetSeg(num_classes=NUM_CLASSES, input_dim=3).to(device)
+    from models.pointnet import PointNetSegLite
+    model = PointNetSegLite(num_classes=NUM_CLASSES, input_dim=7).to(device)
+
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
 

@@ -7,7 +7,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from dataset import PointCloudDataset
-from model import PointNetSeg
+from model import PointNetSegLite
 
 
 def train(args):
@@ -20,7 +20,7 @@ def train(args):
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False, num_workers=4)
 
     num_classes = args.num_classes
-    model = PointNetSeg(num_classes=num_classes, input_dim=3).to(device)
+    model = PointNetSegLite(num_classes=num_classes, input_dim=3).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
 

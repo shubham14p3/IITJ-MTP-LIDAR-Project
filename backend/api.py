@@ -6,9 +6,12 @@ import numpy as np
 import torch
 
 from config import CHECKPOINT_DIR, NUM_CLASSES, GRID_SIZE
-from models.pointnet import PointNetSeg
+from models.pointnet import PointNetSegLite
 from mapping.occupancy import points_to_occupancy
 from rl_nav import SimpleRLAgent
+from fastapi.responses import FileResponse
+from pathlib import Path
+from config import PROJECT_ROOT
 
 app = FastAPI(title="Indoor LiDAR Mapping & Navigation API")
 
@@ -23,7 +26,7 @@ app.add_middleware(
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # segmentation model
-SEG_MODEL = PointNetSeg(num_classes=NUM_CLASSES, input_dim=3).to(DEVICE)
+SEG_MODEL = PointNetSegLite(num_classes=NUM_CLASSES, input_dim=7).to(DEVICE)
 ckpt = CHECKPOINT_DIR / "pointnet_3dses_best.pth"
 if ckpt.exists():
     SEG_MODEL.load_state_dict(torch.load(ckpt, map_location=DEVICE))
@@ -56,6 +59,23 @@ class RLStateResponse(BaseModel):
 def health():
     return {"status": "ok"}
 
+@app.get("/sample_npz")
+def download_sample_npz():
+    """
+    Return a sample .npz file stored in ../data/processed/
+    Adjust filename as needed.
+    """
+    sample_path = PROJECT_ROOT / "data" / "processed" / "train_0000.npz"
+
+    if not sample_path.exists():
+        return {"error": "Sample .npz not found. Please run preprocessing first."}
+
+    return FileResponse(
+        path=sample_path,
+        filename="sample_lidar_scan.npz",
+        media_type="application/octet-stream"
+    )
+
 
 @app.post("/segment", response_model=SegmentResponse)
 async def segment(file: UploadFile = File(...)):
@@ -64,16 +84,24 @@ async def segment(file: UploadFile = File(...)):
     """
     content = await file.read()
     data = np.load(io.BytesIO(content))
-    points = data["points"]
-    xyz = points[:, :3].astype("float32")
-    N = xyz.shape[0]
+    points = data["points"]              # (N,7) float32
+    N = points.shape[0]
+
+    # USE ALL 7 FEATURES (xyz + rgb + intensity)
+    pts = points.astype("float32")       # (N,7)
+    pts = torch.from_numpy(pts).unsqueeze(0).to(DEVICE)  # (1,N,7)
+
+    # Model expects (B, input_dim, N)
+    pts = pts.transpose(2, 1)  # (1,7,N)
 
     with torch.no_grad():
-        pts = torch.from_numpy(xyz).unsqueeze(0).to(DEVICE)  # (1,N,3)
-        logits = SEG_MODEL(pts)  # (1,C,N)
+        logits = SEG_MODEL(pts)          # (1,C,N)
         preds = logits.argmax(dim=1).squeeze(0).cpu().numpy()
 
-    return SegmentResponse(num_points=int(N), labels=preds.astype(int).tolist())
+    return SegmentResponse(
+        num_points=int(N),
+        labels=preds.astype(int).tolist()
+    )
 
 
 @app.post("/build_map", response_model=MapResponse)
