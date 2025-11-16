@@ -13,7 +13,7 @@ EV Charging Station Demand Forecasting
 This project focuses on Forecast electricity consumption and session demand for Electric Vehicle (EV) charging stations using advanced time series modeling. This assists operators in optimizing load distribution and future planning.
 
 ---
-
+https://zenodo.org/records/13323342
 ## Requirements
 - **Python 3.10+**
 - **Node.js 18+**
