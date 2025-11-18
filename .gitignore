@@ -20,6 +20,9 @@ frontend/node_modules
 backend/app/secrets.py
 data
 
+data/
+backend/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -30,3 +33,4 @@ data
 *.njsproj
 *.sln
 *.sw?
+data/
