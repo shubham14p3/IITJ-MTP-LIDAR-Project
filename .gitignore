@@ -21,7 +21,7 @@ backend/app/secrets.py
 data
 
 data/
-backend/
+frontend/frontend
 
 # Editor directories and files
 .vscode/*
