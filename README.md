@@ -1,5 +1,5 @@
-# EV Charging Station Demand Forecasting
-EV Charging Station Demand Forecasting
+# Deep Learning-Driven LiDAR Data Processing for Enhanced Indoor Mapping and Robot Navigation
+Deep Learning-Driven LiDAR Data Processing for Enhanced Indoor Mapping and Robot Navigation
 
 [![Contributors][contributors-shield]][contributors-url]  
 [![Forks][forks-shield]][forks-url]  
@@ -10,77 +10,65 @@ EV Charging Station Demand Forecasting
 
 ## Overview
 
-This project focuses on Forecast electricity consumption and session demand for Electric Vehicle (EV) charging stations using advanced time series modeling. This assists operators in optimizing load distribution and future planning.
+A full-stack system for **LiDAR-based Indoor Mapping**, **Semantic Segmentation**, **2D Grid Mapping**, and **Reinforcement Learning Navigation**.  
+Built using **Python (FastAPI)** and **React (Vite)**, this project visualizes LiDAR scans, performs real-time segmentation, generates occupancy maps, and simulates robot navigation.
 
 ---
-https://zenodo.org/records/13323342
+
 ## Requirements
 - **Python 3.10+**
-- **Node.js 18+**
-- **Flask** for backend
-- **React.js** for frontend
-- **Redux Toolkit** for state management
-- **Material-UI** for UI components
+- **FastAPI / Uvicorn**
+- **React.js (Vite)**
+- **Redux Toolkit**
+- **Material UI**
+- **NumPy / PyTorch (Segmentation Model)**
 
 ---
 
 ## Live Project Links
-- **UI:** [http://51.20.36.32:5173/login/](http://51.20.36.32:5173/)
-- **Backend:** [http://51.20.36.32:8000/raw](http://51.20.36.32:8000/)
+- **UI:**  
+- **Backend:** 
 
-User Name : **admin** || Password: **admin**  (Default)
+User: **admin**  
+Password: **admin**
+
 ---
 ## Reports
 - [Download the report (PDF)](assets/ProjectReport.pdf)
-- [Download the report (Word)](assets/ProjectReport.docx)
-- [Download the AI report](assets/AIReport.pdf)
-- [Download the Similarity report](assets/SimilarityReport.pdf)
-
 ## Setup Instructions
 
 ### Backend Setup
 
-#### Step 1: Create and Activate Python Virtual Environment
-
+#### Step 1: Create and Activate Virtual Environment
 1. **Create a Virtual Environment**:
-    ```bash
-    python3.10 -m venv venv
-    ```
+```bash
+python3.10 -m venv venv
+```
 
 2. **Activate Virtual Environment**:
-   - **Command Prompt**:
-     ```bash
-     venv\Scripts\activate
-     ```
-   - **PowerShell**:
-     ```bash
-     .\venv\Scripts\Activate
-     ```
-   - **Git Bash**:
-     ```bash
-     source venv/Scripts/activate
-     ```
-
-# Install requirements
-python -m pip install --upgrade pip setuptools wheel
-pip install -r requirements.txt
-
-python convert_npy_to_npz.py
-python preprocess_3dses.py
-python train_seg.py --epochs 1 --batch_size 1
-uvicorn api:app --reload --port 8000
-
-
-#### Step 2: Install Python Dependencies
-Install the required Python packages using the `requirements.txt` file:
+Activate:
 ```bash
+source venv/Scripts/activate  # Git Bash
+.\venv\Scripts\Activate       # PowerShell
+venv\Scripts\activate         # CMD
+```
+
+#### Step 2: Install Requirements
+```bash
+pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 ```
 
-#### Step 3: Run the uvicorn Backend
-Start the Uvicorn app:
+#### Step 3: Preprocessing (Optional)
 ```bash
-uvicorn app:app --reload --host 0.0.0.0 --port 8000
+python convert_npy_to_npz.py
+python preprocess_3dses.py
+python train_seg.py --epochs 1 --batch_size 1
+```
+
+#### Step 4: Start Backend
+```bash
+uvicorn api:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ---
@@ -104,101 +92,82 @@ npm run dev
 ## Folder Structure
 ```
 project-root/
-├── backend/                # Backend code
-│   ├── app.py              # App
-│   ├── data/               # Dataset folder
-│   ├── requirements.txt    # Python dependencies
-├── src/                    # Frontend React code
-│   ├── libs/               # React components
-│   ├── pages/              # Layout components
-│   ├── App.jsx             # Main application file
-│   ├── main.jsx            # Entry point for React
-├── assets/                 # Static assets
-├── README.md               # Project documentation
-├── package.json            # Node.js dependencies
-├── vite.config.js          # Vite configuration
+├── backend/
+│   ├── api.py
+│   ├── model/
+│   ├── utils/
+│   ├── data/
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   ├── api.js
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   └── package.json
+├── assets/
+├── README.md
+└── vite.config.js
 ```
+
 ---
 
 ## Features
 
 ### Backend
-- **uvicorn API** for data processing and machine learning predictions.
-- **Endpoints** for:
-  • /ingest-json: Flatten and save ACN JSON.
-  • /clean: Aggregate and clean data.
-  • /diagnostics: Generate ACF/PACF for parameter tuning.
-  • /forecast: Run SARIMAX forecast with auto grid.
-  • /download/forecast.csv: Download forecast results
-
+- **Segmentation API** (`/segment`, `/segment/random`, `/segment/stream`)
+- **Mapping API** (`/map/build`, `/map/get`)
+- **RL Navigation** (reset, step, reward system)
+- **Sample NPZ download**
+- **File handling & preprocessing**
 
 ### Frontend
-- **React.js** for building the user interface.
-- **Material-UI** for responsive and modern design.
-- **Redux Toolkit** for state management.
-- **Features**:
-  - Login and authentication.
-  - Data analysis, cleaning, and visualization.
-  - Machine learning model selection and prediction.
+- **Login & Authentication**
+- **LiDAR Semantic Segmentation Viewer**
+- **2D Occupancy Mapping**
+- **Reinforcement Learning Agent Simulation**
+- **Batch Segmentation Tool**
+- **Explainability Page (Architecture / Flow)**
+- **Material UI + Redux Toolkit**
 
 ---
 
 ## Screenshots
 
 ### Login Screen
-![Login Screen](assets/1.jpg)
+![Login](assets/login.jpg)
 
-### Intro Screen 
-![Intro Screen](assets/2.jpg)
-![Intro Screen](assets/22.jpg)
+### Segmentation Page
+![Segmentation](assets/seg.jpg)
 
-### Raw Data
-![Raw Data](assets/3.jpg)
+### Occupancy Map
+![Map](assets/map.jpg)
 
-### Raw Data Filling
-![Raw Data Filling](assets/4.jpg)
+### RL Navigation
+![RL](assets/rl.jpg)
 
-### Cleaning
-![Cleaning](assets/5.jpg)
-![Cleaning](assets/55.jpg)
+### Batch Processor
+![Batch](assets/batch.jpg)
 
-### Prediction / Forcasting
-![Prediction / Forcasting](assets/7.jpg)
-
-### Explaination of Project
-![Explaination](assets/8.jpg)
-
-### AWS Hosting
-![AWS](assets/10.jpg)
-![AWS](assets/11.jpg)
+### Explain Page
+![Explain](assets/explain.jpg)
 
 ---
 
-# Model Evaluation Summary
+## Model Summary
 
+The segmentation model follows a **PointNet-style architecture**:
+- Point-wise MLP  
+- 1D Convolutions  
+- Global Max Pooling  
+- Feature concatenation  
+- Classifier → 8 indoor classes
 
-## Conclusion
-
- Model Evaluation – Understanding the Metrics
-
-- MAE (Mean Absolute Error): Measures the average magnitude of errors between predicted and actual values, without considering direction. Lower MAE means predictions are closer to true values.
-
-- RMSE (Root Mean Squared Error): Penalizes larger errors more heavily. It’s useful when you care more about large deviations. Smaller RMSE implies more stable forecasts.
-
-- MAPE (Mean Absolute Percentage Error): Expresses errors as a percentage of actual values, making it easier to interpret accuracy in real-world terms (e.g., “Our forecast is 92% accurate”).
-
-- These metrics are shown next to forecast plots to help users visually and statistically evaluate model performance.
-
----
-
-
-
-### Frontend
-- **React.js**
-- **Redux Toolkit**
-- **Material-UI**
-- **Chart.js** for visualizations
-- **JSPDF** for PDF Download
+Classes:
+```
+floor, wall, table, chair, door, window, sofa, clutter
+```
 
 ---
 
@@ -211,29 +180,27 @@ project-root/
 ---
 
 ## Contributions
-
-Feel free to contribute by creating pull requests or submitting issues. Suggestions for improving data processing methods, adding more visualizations, or optimizing the application are welcome.
+Feel free to contribute via issues or pull requests.  
+Suggestions for improving segmentation, mapping, or RL logic are welcome.
 
 ---
 
 ## Show Your Support
-
-Give a ⭐ if you like this project!
+⭐ If you like this project, give it a star!
 
 ---
 
 ## Acknowledgments
-
+- Developed under the guidance of **Dr. Sumit Kalra**, IIT Jodhpur.
 - Supported by [IIT Jodhpur](https://www.iitj.ac.in/).
 
 ---
 
-<!-- MARKDOWN LINKS & IMAGES -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/shubham14p3/IITJ-EV-Charging-Station-Demand-Forecasting.svg?style=flat-square
-[contributors-url]: https://github.com/shubham14p3/IITJ-EV-Charging-Station-Demand-Forecasting/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/shubham14p3/IITJ-EV-Charging-Station-Demand-Forecasting.svg?style=flat-square
-[forks-url]: https://github.com/shubham14p3/IITJ-EV-Charging-Station-Demand-Forecasting/network/members
-[stars-shield]: https://img.shields.io/github/stars/shubham14p3/IITJ-EV-Charging-Station-Demand-Forecasting.svg?style=flat-square
-[stars-url]: https://github.com/shubham14p3/IITJ-EV-Charging-Station-Demand-Forecasting/stargazers
-[issues-shield]: https://img.shields.io/github/issues/shubham14p3/IITJ-EV-Charging-Station-Demand-Forecasting.svg?style=flat-square
+<!-- Badges -->
+[contributors-shield]: https://img.shields.io/github/contributors/shubham14p3/IITJ-MTP-LIDAR-Project.svg?style=flat-square
+[contributors-url]: https://github.com/shubham14p3/IITJ-MTP-LIDAR-Project/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/shubham14p3/IITJ-MTP-LIDAR-Project.svg?style=flat-square
+[forks-url]: https://github.com/shubham14p3/IITJ-MTP-LIDAR-Project/network/members
+[stars-shield]: https://img.shields.io/github/stars/shubham14p3/IITJ-MTP-LIDAR-Project.svg?style=flat-square
+[stars-url]: https://github.com/shubham14p3/IITJ-MTP-LIDAR-Project/stargazers
+[issues-shield]: https://img.shields.io/github/issues/shubham14p3/IITJ-MTP-LIDAR-Project.svg?style=flat-square
