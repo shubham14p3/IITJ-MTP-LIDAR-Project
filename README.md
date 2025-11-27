@@ -136,22 +136,38 @@ project-root/
 ## Screenshots
 
 ### Login Screen
-![Login](assets/login.jpg)
+![Login](assets/1.JPG)
+
+### Login Cred
+![LoginCred](assets/2.JPG)
+
+### Landing Screen
+![Landing](assets/3.JPG)
+
+### Backend Connection Screen
+![Connection](assets/4.JPG)
+
+### Backend Connection Failed Screen
+![Fail](assets/5.JPG)
+
+### Backend Connection Success Screen
+![Sucess](assets/6.JPG)
+![Sucess](assets/7.JPG)
 
 ### Segmentation Page
-![Segmentation](assets/seg.jpg)
+![Segmentation](assets/8.JPG)
 
 ### Occupancy Map
-![Map](assets/map.jpg)
+![Map](assets/9.JPG)
 
 ### RL Navigation
-![RL](assets/rl.jpg)
+![RL](assets/10.JPG)
 
 ### Batch Processor
-![Batch](assets/batch.jpg)
+![Batch](assets/11.JPG)
 
 ### Explain Page
-![Explain](assets/explain.jpg)
+![Explain](assets/12.JPG)
 
 ---
 
