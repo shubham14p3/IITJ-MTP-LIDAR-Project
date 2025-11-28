@@ -26,8 +26,8 @@ Built using **Python (FastAPI)** and **React (Vite)**, this project visualizes L
 ---
 
 ## Live Project Links
-- **UI:**  
-- **Backend:** 
+- **UI:**   : http://18.204.128.217:5173/login
+- **Backend:** : http://18.204.128.217:8000/health
 
 User: **admin**  
 Password: **admin**
@@ -35,14 +35,34 @@ Password: **admin**
 ---
 ## Reports
 - [Download the report (PDF)](assets/ProjectReport.pdf)
-## Setup Instructions
+
+### Setup Instructions
+
+## 📦 Software & Dataset Requirements
+
+- **Python**              : >= 3.10  
+- **VS Code**             : Latest Stable Version  
+- **Node.js (with npm)**  : >= 18.x  
+- **Dataset**             : Indoor LiDAR Dataset (Zenodo)  
+
+
+## 🔗 Download Links
+
+| Tool / Dataset | Link                                          |
+|----------------|-----------------------------------------------|
+| 🐍 Python 3.10 | https://www.python.org/downloads/release/python-3100/ |
+| 📝 VS Code     | https://code.visualstudio.com/download        |
+| 🟩 Node.js     | https://nodejs.org/en                         |
+| 📂 Dataset     | https://zenodo.org/records/13323342           |
 
 ### Backend Setup
 
 #### Step 1: Create and Activate Virtual Environment
 1. **Create a Virtual Environment**:
 ```bash
+python -m venv venv
 python3.10 -m venv venv
+(It must be 3.10 Version Python)
 ```
 
 2. **Activate Virtual Environment**:
@@ -85,6 +105,7 @@ npm install
 Start the development server:
 ```bash
 npm run dev
+npm run dev -- --host 0.0.0.0 (To Expose on network)
 ```
 
 ---
