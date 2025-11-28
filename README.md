@@ -29,6 +29,10 @@ Built using **Python (FastAPI)** and **React (Vite)**, this project visualizes L
 - **UI:**   : http://18.204.128.217:5173/login
 - **Backend:** : http://18.204.128.217:8000/health
 
+### Credentials 
+User: **m24de3076**  
+Password: **m24de3076**
+or
 User: **admin**  
 Password: **admin**
 
