@@ -194,6 +194,10 @@ project-root/
 ### Explain Page
 ![Explain](assets/12.JPG)
 
+### AWS Page
+![AWS Cluser](assets/311.JPG)
+![AWS Elastic IP](assets/322.JPG)
+
 ---
 
 ## Model Summary
